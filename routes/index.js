@@ -11,7 +11,8 @@ router.get('/', eventController.homePage); //
 
 // REGISTER
 router.get('/register', authController.registerForm);
-router.post('/register', authController.register, authController.login);
+router.post('/register', authController.register);
+// router.post('/register', authController.register, authController.login);
 
 // LOGIN & LOGOUT
 router.get('/login', authController.loginForm);

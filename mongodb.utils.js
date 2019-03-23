@@ -11,7 +11,7 @@ module.exports = {
 }
 
 function connect() {
-    mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds121176.mlab.com:21176/otrc-test-app', { useNewUrlParser: true });
+    mongoose.connect('mongodb://mshowman:OTRCTest2019@ds121176.mlab.com:21176/otrc-test-app', { useNewUrlParser: true });
     // mongoose.connect('mongodb://localhost/shoestore', { useNewUrlParser: true });
 }
 

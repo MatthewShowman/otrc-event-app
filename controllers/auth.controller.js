@@ -1,5 +1,6 @@
 const passport = require('passport');
 const Runner = require('../models/runner.model');
+const Email = require('../models/emailList.model');
 const authServices = require('../services/auth.service');
 
 exports.registerForm = (req, res) => {
@@ -22,13 +23,15 @@ exports.register = async (req, res, next) => {
     // This redirect may change later
     let validEmail = authServices.validateEmail(email);
     if (!validEmail) {
-        res.redirect('/register', { error: 'Please enter a valid email address' });
+        // res.redirect('/register', { error: 'Please enter a valid email address' });
+        res.send('Please enter a valid email address');
     }
 
     // This redirect may change later
     let matchingPasswords = authServices.passwordsMatch(password, password2);
     if (!matchingPasswords) {
-        res.redirect('/register', { error: 'Entered passwords do not match' });
+        // res.redirect('/register', { error: 'Entered passwords do not match' });
+        res.status(500).send('Entered passwords do not match');
     }
 
     // This redirect may change later
@@ -42,27 +45,35 @@ exports.register = async (req, res, next) => {
 
     let runnerEmail = await Runner.findOne({ email: email });
     if (runnerEmail) {
-        res.redirect('/register', { error: 'This email address already exists' });
+        res.status(500).send('This email address already exists');
+        // res.redirect('/register', { error: 'This email address already exists' });
     }
 
-    let runner = new Runner({
+    let newRunner = new Runner({
         firstname,
         lastname,
         email,
     });
 
+    let newEmail = new Email({
+        email,
+    })
+
     try {
-        let registeredRunner = await Runner.register(runner, req.body.password);
-        console.log(registeredRunner);
-        await registeredUser.save();
-
+        let registeredRunner = await Runner.register(newRunner, req.body.password);
+        await registeredRunner.save();
         console.log(registeredRunner);
 
-        res.redirect('/login'); // Redirect may need to change
+        await newEmail.save();
+        console.log(newEmail);
+
+        res.send(registeredRunner);
+        // res.redirect('/login'); // Redirect may need to change
     }
     catch (error) {
         console.log(error);
-        res.redirect('/register', { error: 'Could not add new runner' });
+        // res.redirect('/register', { error: 'Could not add new runner' });
+        res.send('Could not add new runner');
     }
 }
 

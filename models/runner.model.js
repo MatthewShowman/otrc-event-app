@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const passportLocalMongoose = require("passport-local-mongoose");
 
-const runnerSchema = mongoose.Schema({
+const runnerSchema = new Schema({
   role: {
     type: String,
     default: "participant"
@@ -17,7 +19,16 @@ const runnerSchema = mongoose.Schema({
     type: String,
     trim: true,
     unique: true
+  },
+  events: {
+    type: mongoose.Schema.Types.ObjectId, ref: 'Event'
+  },
+  updated: {
+    type: Date,
+    Default: Date.now
   }
 });
+
+runnerSchema.plugin(passportLocalMongoose, { usernameField: "email", usernameLowerCase: true });
 
 module.exports = mongoose.model("Runner", runnerSchema);
