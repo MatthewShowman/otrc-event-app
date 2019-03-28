@@ -3,10 +3,10 @@ const Runner = require('../models/runner.model');
 
 module.exports = {
   checkForInputs,
-  formatText,
   validateEmail,
   passwordsMatch,
   passwordContainsCapLowNum,
+  currentRole,
 };
 
 function checkForInputs(firstname, lastname, email, password, password2) {
@@ -22,10 +22,6 @@ function checkForInputs(firstname, lastname, email, password, password2) {
   return hasInputs;
 }
 
-function formatText(text) {
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
 function validateEmail(email) {
   return isEmail.validate(email);
 }
@@ -36,4 +32,8 @@ function passwordsMatch(password1, password2) {
 
 function passwordContainsCapLowNum(password) {
   return (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(password));
+}
+
+function currentRole() {
+
 }

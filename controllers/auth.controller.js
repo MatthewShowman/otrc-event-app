@@ -2,6 +2,7 @@ const passport = require('passport');
 const Runner = require('../models/runner.model');
 const Email = require('../models/emailList.model');
 const authServices = require('../services/auth.service');
+const generalServices = require('../services/general.service');
 
 exports.registerForm = (req, res) => {
     res.render('register', req.flash());
@@ -40,8 +41,8 @@ exports.register = async (req, res, next) => {
         res.redirect('/register', { error: 'Passwords must be 8 characters long and contain numbers and both lowercase and uppercase letters' });
     }
 
-    firstname = authServices.formatText(firstname);
-    lastname = authServices.formatText(lastname);
+    firstname = generalServices.formatText(firstname);
+    lastname = generalServices.formatText(lastname);
 
     let runnerEmail = await Runner.findOne({ email: email });
     if (runnerEmail) {
