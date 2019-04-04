@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+mongoose.Promise = global.Promise;
 
 const eventSchema = new Schema({
   eventName: {
@@ -12,16 +13,16 @@ const eventSchema = new Schema({
     trim: true
   },
   eventTime: {
-    type: TimeRanges,
-    trim: true
-  },
-  location: {
     type: String,
     trim: true
   },
-  runners: {
-    type: mongoose.Schema.Types.ObjectId, ref: 'Runner'
-  }
+  eventLocation: {
+    type: String,
+    trim: true
+  },
+  runners: [
+    { type: mongoose.Schema.Types.ObjectId, ref: 'Runner' }
+  ]
 });
 
 module.exports = mongoose.model("Event", eventSchema);

@@ -1,0 +1,8 @@
+- if(role === 'admin')
+    extends admin-layout
+- else if(role === 'runner')
+    extends runner-layout
+- else
+    extends general-layout
+
+block content

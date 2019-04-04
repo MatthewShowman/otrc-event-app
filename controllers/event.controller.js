@@ -1,12 +1,20 @@
-
+const Event = require('../models/event.model');
 
 exports.homePage = (req, res) => {
+    let role;
     if (req.user) {
-        let role = req.user.role;
+        role = req.user.role;
         console.log(role);
-        res.redirect(`/${role}/home`);
     }
     else {
-        res.render('home', { success: req.flash('success') });
+        role = "general";
     }
+    res.render('home', { role, success: req.flash('success') });
 }
+
+exports.findEvent = async (req, res) => {
+    let requestedEvent = await Event.findOne({ _id: req.params.id });
+    res.send(requestedEvent);
+}
+
+//5ca68a0bcd09ad0e3117ec06

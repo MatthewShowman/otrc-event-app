@@ -19,7 +19,11 @@ router.get('/login', authController.loginForm);
 router.post('/login', authController.login, eventController.homePage);
 router.get('/logout', authController.logout);
 
+//
+router.get('/events/:id', eventController.findEvent);
+
 // RUNNER ROUTES
+router.post('/events/:id', runnerController.registerForEvent);
 /*
     profile
     event history
@@ -35,7 +39,7 @@ router.get('/logout', authController.logout);
 
 
 // ADMIN ROUTES
-
+router.post('/events/add', adminController.addNewEvent);
 /*
     get event registrants
 
