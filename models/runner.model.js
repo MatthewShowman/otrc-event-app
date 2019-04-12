@@ -20,9 +20,7 @@ const runnerSchema = new Schema({
     trim: true,
     unique: true
   },
-  events: {
-    type: mongoose.Schema.Types.ObjectId, ref: 'Event'
-  },
+  events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Runner' }],
   updated: {
     type: Date,
     Default: Date.now

@@ -13,7 +13,7 @@ const eventServices = require('../services/event.service');
 */
 
 exports.addNewEvent = async (req, res) => {
-    let { eventName, eventDate, eventTime, location } = req.body;
+    let { eventName, eventDate, eventTime, eventLocation } = req.body;
 
     // This redirect may change later
     let allInputsEntered = eventServices.checkForInputs(eventName, eventDate, eventTime, eventLocation);
@@ -27,7 +27,7 @@ exports.addNewEvent = async (req, res) => {
         eventName,
         eventDate,
         eventTime,
-        location,
+        eventLocation,
     });
 
     try {

@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 
 const emailListSchema = mongoose.Schema({
-  email: {
-    type: String,
-    trim: true,
-    unique: true
-  }
+  email: Array
 });
 
 module.exports = mongoose.model("Email", emailListSchema);

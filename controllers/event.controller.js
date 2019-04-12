@@ -12,6 +12,18 @@ exports.homePage = (req, res) => {
     res.render('home', { role, success: req.flash('success') });
 }
 
+/*
+    fetchAllEvents
+    findEvent
+    
+*/
+
+exports.fetchAllEvents = async (req, res) => {
+    let allEvents = await Event.find();
+    res.send(allEvents);
+}
+
+
 exports.findEvent = async (req, res) => {
     let requestedEvent = await Event.findOne({ _id: req.params.id });
     res.send(requestedEvent);
