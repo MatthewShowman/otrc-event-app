@@ -22,8 +22,8 @@ router.get('/logout', authController.logout);
 
 // RUNNER ROUTES
 router.get('/events', eventController.fetchAllEvents);
-// router.get('/events/:id', eventController.findEvent);
-router.get('/events/:id', runnerController.registerForEvent);
+router.get('/events/:id', eventController.fetchEvent);
+router.post('/events/:id', runnerController.registerForEvent);
 /*
     profile
     event history

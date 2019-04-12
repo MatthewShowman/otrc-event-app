@@ -1,4 +1,5 @@
 const Event = require('../models/event.model');
+const eventServices = require('../services/event.service');
 
 exports.homePage = (req, res) => {
     let role;
@@ -24,8 +25,10 @@ exports.fetchAllEvents = async (req, res) => {
 }
 
 
-exports.findEvent = async (req, res) => {
-    let requestedEvent = await Event.findOne({ _id: req.params.id });
+exports.fetchEvent = async (req, res) => {
+    let eventID = req.params.id;
+    let role = req.body.user.role || req.user.role;
+    let requestedEvent = await eventServices.fetchEventByID(role, eventID);
     res.send(requestedEvent);
 }
 
