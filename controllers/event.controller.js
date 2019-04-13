@@ -15,7 +15,9 @@ exports.homePage = (req, res) => {
 
 /*
     fetchAllEvents
-    findEvent
+    fetchEvent
+    updateEvent
+    deleteEvent
     
 */
 
@@ -29,7 +31,16 @@ exports.fetchEvent = async (req, res) => {
     let eventID = req.params.id;
     let role = req.body.user.role || req.user.role;
     let requestedEvent = await eventServices.fetchEventByID(role, eventID);
-    res.send(requestedEvent);
+    let listOfRunners = requestedEvent.runners;
+    
+    if(listOfRunners)
+        res.send({requestedEvent, listOfRunners});
+    else
+        res.send(requestedEvent);
 }
 
-//5ca68a0bcd09ad0e3117ec06
+exports.deleteEvent = async (req, res) => {
+    let eventID = req.params.id;
+    let deleteThisEvent = findOneAndDelete({_id: eventID});
+    res.send(deleteThisEvent);
+}
