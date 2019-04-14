@@ -23,7 +23,9 @@ router.get('/logout', authController.logout);
 // RUNNER ROUTES
 router.get('/events', eventController.fetchAllEvents);
 router.get('/events/:id', eventController.fetchEvent);
+router.get('/runner/:id', runnerController.fetchRunner);
 router.post('/events/:id', runnerController.registerForEvent);
+
 /*
     profile
     event history
@@ -39,7 +41,9 @@ router.post('/events/:id', runnerController.registerForEvent);
 
 
 // ADMIN ROUTES
-router.post('/events/add', adminController.addNewEvent);
+router.get('/runner', adminController.searchRunnersByLastname);
+router.post('/new-event', adminController.addNewEvent);
+router.delete('/events/:id', adminController.deleteEvent, eventController.fetchAllEvents);
 /*
     get event registrants
 

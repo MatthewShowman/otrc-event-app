@@ -5,9 +5,11 @@ const Email = require('../models/emailList.model');
 const authServices = require('../services/auth.service');
 const generalServices = require('../services/general.service');
 const eventServices = require('../services/event.service');
+const runnerServices = require('../services/runner.service');
 
 /*
     registerForEvent
+    fetchRunner
 
 */
 
@@ -27,4 +29,12 @@ exports.registerForEvent = async (req, res) => {
 
     res.send(InfoToReturn);
 
+}
+
+exports.fetchRunner = async (req, res) => {
+    let runnerID = req.params.id;
+    let role = req.body.user.role || req.user.role;
+    let requestedRunner = await runnerServices.fetchRunnerByID(role, runnerID);
+
+    res.send({ requestedRunner });
 }

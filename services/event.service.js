@@ -5,8 +5,8 @@ module.exports = {
     fetchEventByID,
 };
 
-function checkForInputs(eventName, eventDate, eventTime, location) {
-    let inputsArray = [eventName, eventDate, eventTime, location];
+function checkForInputs(eventName, eventDate, eventTime, eventLocation) {
+    let inputsArray = [eventName, eventDate, eventTime, eventLocation];
     let hasInputs = true;
 
     for (let value of inputsArray) {

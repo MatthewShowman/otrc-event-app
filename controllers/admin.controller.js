@@ -5,10 +5,14 @@ const Email = require('../models/emailList.model');
 const authServices = require('../services/auth.service');
 const generalServices = require('../services/general.service');
 const eventServices = require('../services/event.service');
+const runnerServices = require('../services/runner.service');
 
 /*
     addNewEvent
     editEvent
+    deleteEvent
+
+    searchRunnersByLastname
 
 */
 
@@ -18,10 +22,9 @@ exports.addNewEvent = async (req, res) => {
     // This redirect may change later
     let allInputsEntered = eventServices.checkForInputs(eventName, eventDate, eventTime, eventLocation);
     if (!allInputsEntered) {
-        res.redirect('/events/add', { error: 'Please enter the requested info in each field' });
+        // res.redirect('/events/new', { error: 'Please enter the requested info in each field' });
+        res.status(400).send('Please enter the requested info in each field');
     }
-
-    // let runners = '';
 
     let newEvent = new Event({
         eventName,
@@ -45,5 +48,21 @@ exports.addNewEvent = async (req, res) => {
 }
 
 exports.editEvent = async (req, res) => {
+    let userRole = req.body.user.id || req.user.id;
+    let eventID = req.params.id;
+    let eventToEdit = await eventServices.fetchEventByID(userRole, eventID);
 
+    res.status(200).send(eventToEdit);
+}
+
+exports.deleteEvent = async (req, res, next) => {
+    let eventID = req.params.id;
+    await Event.findOneAndDelete({ _id: eventID });
+    next();
+}
+
+exports.searchRunnersByLastname = async (req, res) => {
+    let runnerLastname = req.query.lastname;
+    let runners = await runnerServices.fetchRunnerByLastname(runnerLastname);
+    res.send(runners);
 }

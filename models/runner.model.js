@@ -20,11 +20,7 @@ const runnerSchema = new Schema({
     trim: true,
     unique: true
   },
-  events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Runner' }],
-  updated: {
-    type: Date,
-    Default: Date.now
-  }
+  events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }],
 });
 
 runnerSchema.plugin(passportLocalMongoose, { usernameField: "email", usernameLowerCase: true });
