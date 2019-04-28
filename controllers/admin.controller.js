@@ -1,4 +1,5 @@
 const passport = require('passport');
+const moment = require('moment');
 const Runner = require('../models/runner.model');
 const Event = require('../models/event.model');
 const Email = require('../models/emailList.model');
@@ -26,10 +27,12 @@ exports.addNewEvent = async (req, res) => {
         res.status(400).send('Please enter the requested info in each field');
     }
 
+    let eventDateTime = eventServices.createDate(eventDate, eventTime);
+    console.log(eventDateTime);
+
     let newEvent = new Event({
         eventName,
-        eventDate,
-        eventTime,
+        eventDateTime,
         eventLocation,
         eventDescription,
     });

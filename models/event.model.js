@@ -6,14 +6,14 @@ const eventSchema = new Schema({
     type: String,
     trim: true,
   },
-  eventDate: {
+  eventDateTime: {
     type: Date,
     trim: true
   },
-  eventTime: {
-    type: String,
-    trim: true
-  },
+  // eventTime: {
+  //   type: String,
+  //   trim: true
+  // },
   eventLocation: {
     type: String,
     trim: true

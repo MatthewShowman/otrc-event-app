@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-var sessionstore = require('sessionstore');
+// const sessionstore = require('sessionstore');
 const path = require('path');
 
 const Runner = require('./models/runner.model');
@@ -26,18 +26,18 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   // cookie: { secure: true },
-  store: sessionstore.createSessionStore({
-    type: 'mongodb',
-    host: 'localhost',         // optional
-    port: 27017,               // optional
-    dbName: 'sessionDb',       // optional
-    collectionName: 'sessions',// optional
-    timeout: 10000,             // optional
-    authSource: 'authedicationDatabase',        // optional
-    username: "ffranklin@email.com"               // optional
-    // password: 'secret'                          // optional
-    // url: 'mongodb://user:pass@host:port/db?opts // optional
-  })
+  // store: sessionstore.createSessionStore({
+  //   type: 'mongodb',
+  //   host: 'localhost',         // optional
+  //   port: 27017,               // optional
+  //   dbName: 'sessionDb',       // optional
+  //   collectionName: 'sessions',// optional
+  //   timeout: 10000,             // optional
+  //   authSource: 'authedicationDatabase',        // optional
+  //   username: "ffranklin@email.com"               // optional
+  //   // password: 'secret'                          // optional
+  //   // url: 'mongodb://user:pass@host:port/db?opts // optional
+  // })
 }));
 
 // Passport Middleware
