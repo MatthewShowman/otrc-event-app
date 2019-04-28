@@ -17,7 +17,7 @@ const runnerServices = require('../services/runner.service');
 */
 
 exports.addNewEvent = async (req, res) => {
-    let { eventName, eventDate, eventTime, eventLocation } = req.body;
+    let { eventName, eventDate, eventTime, eventLocation, eventDescription } = req.body;
 
     // This redirect may change later
     let allInputsEntered = eventServices.checkForInputs(eventName, eventDate, eventTime, eventLocation);
@@ -31,6 +31,7 @@ exports.addNewEvent = async (req, res) => {
         eventDate,
         eventTime,
         eventLocation,
+        eventDescription,
     });
 
     try {
@@ -48,11 +49,9 @@ exports.addNewEvent = async (req, res) => {
 }
 
 exports.editEvent = async (req, res) => {
-    let userRole = req.body.user.id || req.user.id;
     let eventID = req.params.id;
-    let eventToEdit = await eventServices.fetchEventByID(userRole, eventID);
-
-    res.status(200).send(eventToEdit);
+    let updatedEvent = await Event.findOneAndUpdate({ _id: eventID }, req.body, { new: true });
+    res.send(updatedEvent);
 }
 
 exports.deleteEvent = async (req, res, next) => {

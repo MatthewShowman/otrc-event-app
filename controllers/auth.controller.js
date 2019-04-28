@@ -80,13 +80,11 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     let email = req.body.email;
-    let user = await User.findOne({ email: email });
+    let runner = await Runner.findOne({ email: email });
 
-    if (user) {
-        role = user.role;
+    if (runner) {
+        let role = runner.role;
     }
-
-    console.log("redirectTo", req.session.redirectTo);
 
     await passport.authenticate('local', {
         failureRedirect: '/login',

@@ -16,7 +16,7 @@ router.post('/register', authController.register);
 
 // LOGIN & LOGOUT
 router.get('/login', authController.loginForm);
-router.post('/login', authController.login, eventController.homePage);
+router.post('/login', authController.login);
 router.get('/logout', authController.logout);
 
 
@@ -24,6 +24,7 @@ router.get('/logout', authController.logout);
 router.get('/events', eventController.fetchAllEvents);
 router.get('/events/:id', eventController.fetchEvent);
 router.get('/runner/:id', runnerController.fetchRunner);
+router.patch('/runner/:id', runnerController.editRunner);
 router.post('/events/:id', runnerController.registerForEvent);
 
 /*
@@ -43,6 +44,7 @@ router.post('/events/:id', runnerController.registerForEvent);
 // ADMIN ROUTES
 router.get('/runner', adminController.searchRunnersByLastname);
 router.post('/new-event', adminController.addNewEvent);
+router.patch('/events/:id', adminController.editEvent);
 router.delete('/events/:id', adminController.deleteEvent, eventController.fetchAllEvents);
 /*
     get event registrants

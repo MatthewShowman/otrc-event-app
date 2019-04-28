@@ -10,7 +10,7 @@ const runnerServices = require('../services/runner.service');
 /*
     registerForEvent
     fetchRunner
-
+    editRunner
 */
 
 exports.registerForEvent = async (req, res) => {
@@ -33,8 +33,14 @@ exports.registerForEvent = async (req, res) => {
 
 exports.fetchRunner = async (req, res) => {
     let runnerID = req.params.id;
-    let role = req.body.user.role || req.user.role;
+    let role = req.body.user.role || req.runner.role;
     let requestedRunner = await runnerServices.fetchRunnerByID(role, runnerID);
 
     res.send({ requestedRunner });
+}
+
+exports.editRunner = async (req, res) => {
+    let runnerID = req.params.id;
+    let updatedRunner = await Runner.findOneAndUpdate({ _id: runnerID }, req.body, { new: true });
+    res.send(updatedRunner);
 }

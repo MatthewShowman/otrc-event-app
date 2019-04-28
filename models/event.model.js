@@ -18,6 +18,10 @@ const eventSchema = new Schema({
     type: String,
     trim: true
   },
+  eventDescription: {
+    type: String,
+    default: "Coming Soon"
+  },
   runners: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Runner' }]
 });
 

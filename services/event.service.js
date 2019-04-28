@@ -19,7 +19,7 @@ function checkForInputs(eventName, eventDate, eventTime, eventLocation) {
 }
 
 async function fetchEventByID(userRole, eventID) {
-    let requestedEvent = await Event.findOne({ _id: eventID }, 'eventName eventDate eventTime eventLocation runners')
+    let requestedEvent = await Event.findOne({ _id: eventID }, 'eventName eventDate eventTime eventLocation eventDescription runners')
         .populate('runners', 'firstname lastname');
 
     if (userRole !== "admin") {
@@ -28,7 +28,9 @@ async function fetchEventByID(userRole, eventID) {
             eventDate: requestedEvent.eventDate,
             eventTime: requestedEvent.eventTime,
             eventLocation: requestedEvent.eventLocation,
+            eventDescription: requestedEvent.eventDescription,
         };
     }
+
     return requestedEvent;
 }

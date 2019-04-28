@@ -3,14 +3,15 @@ const eventServices = require('../services/event.service');
 
 exports.homePage = (req, res) => {
     let role;
-    if (req.user) {
-        role = req.user.role;
+    if (req.runner) {
+        role = req.runner.role;
         console.log(role);
     }
     else {
         role = "general";
     }
-    res.render('home', { role, success: req.flash('success') });
+    // res.render('home', { role, success: req.flash('success') });
+    res.send(role + ' is logged in');
 }
 
 /*
