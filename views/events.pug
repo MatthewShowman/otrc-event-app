@@ -1,0 +1,32 @@
+extends general-layout
+
+block content
+    .error
+        h4= error
+    h2 Events
+
+    table(width='100%')
+        col(style='width:20%')
+        col(style='width:10%')
+        col(style='width:10%')
+        col(style='width:20%')
+        col(style='width:30%')
+        col(style='width:10%')
+
+        tr
+            th Event
+            th Event Date
+            th Event Time
+            th Event Location
+            th Event Description
+            th 
+        each event in allEvents
+            tr
+                td= event.eventName
+                td= event.eventDateTime
+                td= event.eventDateTime
+                td= event.eventLocation
+                td= event.eventDescription
+                td
+                    a(href="/event/" + event._id)
+                        button Event Info

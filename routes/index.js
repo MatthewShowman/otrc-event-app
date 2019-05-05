@@ -21,7 +21,7 @@ router.get('/logout', authController.logout);
 
 
 // RUNNER ROUTES
-router.get('/events', eventController.fetchAllEvents);
+router.get('/events', eventController.eventsPage);
 router.get('/events/:id', eventController.fetchEvent);
 router.get('/runner/:id', runnerController.fetchRunner);
 router.patch('/runner/:id', runnerController.editRunner);

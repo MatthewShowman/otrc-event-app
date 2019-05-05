@@ -2,20 +2,20 @@ const Event = require('../models/event.model');
 const eventServices = require('../services/event.service');
 
 exports.homePage = (req, res) => {
-    let role;
     if (req.runner) {
-        role = req.runner.role;
+        let role = req.runner.role;
         console.log(role);
+        res.redirect(`/${role}/`);
     }
     else {
-        role = "general";
+        res.render('general-layout', { success: req.flash('success') });
     }
-    // res.render('home', { role, success: req.flash('success') });
-    res.send(role + ' is logged in');
+    // res.send(role + ' is logged in');
 }
 
 /*
     fetchAllEvents
+    eventsPage
     fetchEvent
     updateEvent
     
@@ -26,6 +26,10 @@ exports.fetchAllEvents = async (req, res) => {
     res.send(allEvents);
 }
 
+exports.eventsPage = async (req, res) => {
+    let allEvents = await Event.find({ eventDateTime: { $gte: Date.now() } });
+    res.render('events', { allEvents });
+}
 
 exports.fetchEvent = async (req, res) => {
     let eventID = req.params.id;
